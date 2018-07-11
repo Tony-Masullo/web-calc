@@ -61,14 +61,14 @@ $('#addButton').click(function() {
 		tot_calculated /= Number(cur_disp_val);
 	}
 	else {
-		if (cur_disp_val != ""){
-			/* A number was clicked right after the equals button was clicked. 
-		     This means a new operation has started */
+		if (cur_disp_val != "" && cur_operator != '+'){
+			/* This means that a number was clicked right after the equals button was clicked, so a a new operation has started. */
 			tot_calculated = 0;
 			tot_calculated += Number(cur_disp_val);
 		}
 		else {
-			/* The addition operator was clicked right after the equals button was clicked. */
+			/* This means one of two things: the addition operator was clicked right after the equals button was clicked, 
+			   or a series of addition operators is being calculated. */
 			tot_calculated += Number(cur_disp_val);
 		}
 	} 
@@ -89,14 +89,14 @@ $('#subtractButton').click(function() {
 		tot_calculated /= Number(cur_disp_val);
 	}
 	else {
-		if (cur_disp_val != ""){
-			/* A number was clicked right after the equals button was clicked. 
-		   This means a new operation has started */
+		if (cur_disp_val != "" && cur_operator != '-'){
+			/* This means that a number was clicked right after the equals button was clicked, so a a new operation has started. */
 			tot_calculated = 0;
 			tot_calculated += Number(cur_disp_val);
 		}
 		else {
-			/* The subtraction operator was clicked right after the equals button was clicked. */
+			/* This means one of two things: the subtraction operator was clicked right after the equals button was clicked, 
+			   or a series of subtraction operators is being calculated. */
 			tot_calculated -= Number(cur_disp_val);
 	  }
 	}
@@ -117,15 +117,15 @@ $('#multiplyButton').click(function() {
 		tot_calculated *= Number(cur_disp_val);
 	}
 	else {
-		if (cur_disp_val != ""){
+		if (cur_disp_val != "" && cur_operator != '+'){
 			/* A number was clicked right after the equals button was clicked. 
 		     This means a new operation has started */
 			tot_calculated = 0;
 			tot_calculated += Number(cur_disp_val);
 		}
 		else {
-			/* The multiplication operator was clicked right after the equals button was clicked. */
-			tot_calculated *= Number(cur_disp_val);
+			/* This means that the multiplication operator was clicked right after either the equals button or the addition button */
+			tot_calculated += Number(cur_disp_val);
 		}	
 	}
 	cur_disp_val = "";
@@ -135,25 +135,25 @@ $('#multiplyButton').click(function() {
 
 /* Division operator is clicked */
 $('#divideButton').click(function() {
-	if (cur_operator == '+'){
-		tot_calculated += Number(cur_disp_val);
-	}
-	else if (cur_operator == '-') {
+	if (cur_operator == '-'){
 		tot_calculated -= Number(cur_disp_val);
 	}
 	else if (cur_operator == '*') {
 		tot_calculated *= Number(cur_disp_val);
 	}
+	else if (cur_operator == '/') {
+		tot_calculated /= Number(cur_disp_val);
+	}
 	else {
-		if (cur_disp_val != ""){
+		if (cur_disp_val != "" && cur_operator != '+'){
 			/* A number was clicked right after the equals button was clicked. 
 		     This means a new operation has started */
 			tot_calculated = 0;
 			tot_calculated += Number(cur_disp_val);
 		}
 		else {
-			/* The division operator was clicked right after the equals button was clicked. */
-			tot_calculated /= Number(cur_disp_val);
+			/* This means that the division operator was clicked right after either the equals button or the addition button */
+			tot_calculated += Number(cur_disp_val);
 		}
 	}
 	cur_disp_val = "";
@@ -187,20 +187,3 @@ $('#clearButton').click(function() {
 	tot_calculated = 0; 
 	$('#display').val(cur_disp_val);
 })
-
- 
-	
-
-
-
-
-
-
-
-
-
-
-
-
-
-
